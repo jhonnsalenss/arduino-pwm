@@ -12,10 +12,10 @@ int pinPWM1 = 11;
 int pinPWM2 = 12;
 #endif
 int frecuencia;
-int TOP;
+uint32_t TOP;
 int escala;
 int duty;     // 25%
-int regDuty;
+uint16_t regDuty;
 
 
 void setup() {
@@ -27,16 +27,18 @@ void setup() {
   escala = 1;
   frecuencia = 1000;
   duty = 25;
-
+  regDuty = 0;
 }
 
 void loop() {
-//  frecuencia = map(analogRead(A0), 0,1023,200,2000);
-  duty = map(analogRead(A1), 0, 1023, 200, 2000);
+  frecuencia = map(analogRead(A0), 0,1023,200,2000);
+  duty = map(analogRead(A1), 0, 1023, 1, 100);
   TOP = (F_CPU / (2 * escala * frecuencia));
-  regDuty = int((duty * TOP) / 100);
+  regDuty = duty * TOP / 100;
   ICR1 = TOP;
   OCR1A = regDuty;
-//  OCR1A = TOP/2;
+//  Serial.println(ICR1);
+//  Serial.println(duty);
+//  Serial.println(OCR1A);
   delay(500); 
 }
