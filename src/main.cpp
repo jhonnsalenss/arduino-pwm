@@ -1,4 +1,6 @@
 // Se utiliza un potenciometro en A0 para variar la frecuencia y duty 25% defecto
+// A0 -> Varia frecuencia desde minimo al maximo
+// A1 -> Varia duty desde 1% a 100%
 
 #include <Arduino.h>
 
@@ -29,10 +31,11 @@ void setup() {
 }
 
 void loop() {
-  frecuencia = analogRead(A0);
+  frecuencia = map(analogRead(A0), 0,1023,200,2000);
+  duty = map(analogRead(A1), 0, 1023, 200, 2000);
   TOP = (F_CPU / (2 * escala * frecuencia));
-  regDuty = (25 * TOP) / 100;
+  regDuty = (duty * TOP) / 100;
   ICR1 = TOP;
   OCR1A = regDuty;
-  delay(1000);
+  delay(500);
 }
