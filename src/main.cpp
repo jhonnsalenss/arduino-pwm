@@ -31,11 +31,12 @@ void setup() {
 }
 
 void loop() {
-  frecuencia = map(analogRead(A0), 0,1023,200,2000);
+//  frecuencia = map(analogRead(A0), 0,1023,200,2000);
   duty = map(analogRead(A1), 0, 1023, 200, 2000);
   TOP = (F_CPU / (2 * escala * frecuencia));
-  regDuty = (duty * TOP) / 100;
+  regDuty = int((duty * TOP) / 100);
   ICR1 = TOP;
-  OCR1A = regDuty;
+//  OCR1A = regDuty;
+  OCR1A = TOP/2;
   delay(500); 
 }
