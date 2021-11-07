@@ -36,7 +36,7 @@ void loop() {
   TOP = (F_CPU / (2 * escala * frecuencia));
   regDuty = int((duty * TOP) / 100);
   ICR1 = TOP;
-//  OCR1A = regDuty;
-  OCR1A = TOP/2;
+  OCR1A = regDuty;
+//  OCR1A = TOP/2;
   delay(500); 
 }
