@@ -37,5 +37,5 @@ void loop() {
   regDuty = (duty * TOP) / 100;
   ICR1 = TOP;
   OCR1A = regDuty;
-  delay(500);
+  delay(500); 
 }
